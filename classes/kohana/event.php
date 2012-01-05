@@ -48,10 +48,13 @@ abstract class Kohana_Event
     {
         $event_names = (array) $event_names;
         foreach ($event_names as $event_name) {
-        	// TODO: добавить уникальность точки соединения и аспекта
+            // TODO: добавить уникальность точки соединения и аспекта
             if (in_array($event_name, array_keys(self::$_listeners_pool))) {
                 foreach (self::$_listeners_pool[$event_name] as $event) {
                     if ($event !== NULL) {
+                        if ( ! is_array($params)) {
+                            $params = array($params);
+                        }
                         call_user_func_array($event, $params);
                     }
                 }
